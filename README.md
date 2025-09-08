@@ -11,7 +11,7 @@
 
 ### Folders & Files
 - `data`: contains [brain tumor MRI dataset](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset/data) used for model training, validation, and testing.
-- `new_data`: contains a new [dataset](https://www.kaggle.com/datasets/mohammadhossein77/brain-tumors-dataset) used to test model on unseen data from different scanning settings.
+- `new_data`: contains a [dataset](https://www.kaggle.com/datasets/mohammadhossein77/brain-tumors-dataset) used to test model on unseen data from different scanning settings.
 - `scripts`: contains all files required to run the jupyter note `brain_cancer_detection.ipynb`.
     - `custom_cnn`: contains class objects of saved models
     - `brain_cancer_detection.ipynb`: project jupyter note 
