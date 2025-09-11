@@ -4,12 +4,13 @@
 - A custom CNN model is built from scratch with PyTorch without using conventional pre-trained models, such as ResNet and VGG.<br>
 
 ### Primary Objectives
-  1. Apply appropriate spatial and intensity augmentations to improve generalization.
-  2. Design, train, and optimize CNN architecture tailored to the dataset.
-  3. Achieve high test accuracy while maintaining model efficiency and robustness.
-  4. Evaluate the final test results and identify limitations and potential improvements for future work.
+  1. Perform EDA to assess data quality and identify any potential issues. 
+  2. Apply appropriate spatial and intensity augmentations to improve generalization.
+  3. Design, train, and optimize CNN architecture tailored to the dataset.``
+  4. Achieve high test scores while maintaining model efficiency and robustness.
+  5. Evaluate the final test results and identify limitations and potential improvements for future work.
 
-### Folders & Files
+### Architectural Overview
 - `data`: contains [brain tumor MRI dataset](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset/data) used for model training, validation, and testing.
 - `new_data`: contains a [dataset](https://www.kaggle.com/datasets/mohammadhossein77/brain-tumors-dataset) used to test model on unseen data from different scanning settings.
 - `scripts`: contains all files required to run the jupyter note `brain_cancer_detection.ipynb`.
