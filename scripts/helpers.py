@@ -362,3 +362,55 @@ def draw_saliency_map(model, test_ds, indices, classes, device, title):
     plt.tight_layout(rect=[0, 0, 1, 0.95])
     plt.suptitle(title, fontsize = 16) # set super title
     plt.show()
+
+
+def predict_proba(test_loader, model, path_to_model, device, classes):
+    # load model
+    model = load_model(model, path_to_model, device)
+    
+    # turn on eval mode
+    model.eval() 
+
+    # define lists to save probs, preds, and target labels
+    probabilities = []
+    predicted_labels = []
+    target_labels = []
+
+    # define softmax func
+    softmax = nn.Softmax(dim = 1)
+    
+    with torch.no_grad():
+        for images, labels in test_loader:
+            # move data to mps
+            image, label = images.to(device), labels.to(device)
+
+            # get prdictions
+            output = model(image)
+
+            # get class probs and round it up for readability
+            probs = softmax(output)
+            rounded_probs = [[round(float(x), 4) for x in row] for row in probs.tolist()]
+
+            # get predicted label
+            _, predicted = torch.max(output, 1)
+
+            # append to lists
+            probabilities.extend(rounded_probs)
+            target_labels.extend([classes[int(l)] for l in label.cpu().numpy()])
+            predicted_labels.extend([classes[int(p)] for p in predicted.cpu().numpy()])
+
+
+    return probabilities, target_labels, predicted_labels
+
+
+def get_misclassifications(test_set, class_probs, true_labels, label_preds):
+    misclassification_indices = []
+    count = 1
+    
+    for i in range(len(test_set)):        
+        if label_preds[i] != true_labels[i]:
+            print(f'Misclassification {count} | True Class: {true_labels[i]} | Predicted Class: {label_preds[i]} | Class Probabilities: {class_probs[i]}')
+            misclassification_indices.append(i)
+            count += 1
+
+    return misclassification_indices
