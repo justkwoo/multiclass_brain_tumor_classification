@@ -309,14 +309,15 @@ def draw_saliency_map(model, test_ds, indices, classes, device, title):
     # turn on eval mode
     model.eval()
 
-    # compute len of indices, and get n_rows
+    # compute len of indices and get num of rows
     n_images = len(indices)
     n_cols = 4  
     n_rows = math.ceil(n_images * 2 / n_cols)
 
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(3.5 * n_cols, 3.5 * n_rows))
     axes = axes.flatten()
-
+    
+    # show origial image + saliency map for a given list of indices
     for i, idx in enumerate(indices):
         image, label = test_ds[idx]
 
@@ -329,7 +330,7 @@ def draw_saliency_map(model, test_ds, indices, classes, device, title):
             std=[1/s for s in std]
         )
 
-        # img to display 
+        # image to display 
         image_disp = inv_normalize(image).clamp(0, 1)
 
         img = image.unsqueeze(0).to(device)
@@ -404,9 +405,13 @@ def predict_proba(test_loader, model, path_to_model, device, classes):
 
 
 def get_misclassifications(test_set, class_probs, true_labels, label_preds):
+    # define list to save misclassification indices
     misclassification_indices = []
+    
+    # set initial misclassification count as 1 
     count = 1
     
+    # print true label, pred label, and class probs for each misclassification case
     for i in range(len(test_set)):        
         if label_preds[i] != true_labels[i]:
             print(f'Misclassification {count} | True Class: {true_labels[i]} | Predicted Class: {label_preds[i]} | Class Probabilities: {class_probs[i]}')
